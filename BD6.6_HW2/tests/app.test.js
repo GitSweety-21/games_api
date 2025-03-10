@@ -1,6 +1,6 @@
 const request = require("supertest");
 const http = require("http");
-const { getAllgames } = require("../controllers");
+const { getAllgames, app } = require("../controllers");
 const { app } = require("../index.js");
 
 jest.mock("../controllers", () => ({
@@ -12,8 +12,8 @@ let server;
 
 beforeAll(async () => {
   server = http.createServer(app);
-  server.listen(3001);
-});
+  server.listen(3001,done);
+},1000);
 
 afterAll(async () => {
   server.close();
