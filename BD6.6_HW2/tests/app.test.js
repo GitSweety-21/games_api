@@ -1,7 +1,8 @@
 const request = require("supertest");
 const http = require("http");
-const { getAllgames, app } = require("../controllers");
+const { getAllgames } = require("../controllers");
 const { app } = require("../index.js");
+jest.setTimeout(10000);
 
 jest.mock("../controllers", () => ({
   ...jest.requireActual("../controllers"),
@@ -12,8 +13,8 @@ let server;
 
 beforeAll(async () => {
   server = http.createServer(app);
-  server.listen(3001,done);
-},1000);
+  await new Promise((resolve) => server.listen(3001, resolve));
+}, 1000);
 
 afterAll(async () => {
   server.close();
